@@ -1,5 +1,7 @@
 package com.shadow_shift_studio.travelagency_frontend
 
+val Padding: Int = 17
+
 val CatalogButtonName: String = "Каталог"
 val CatalogSearchBarText: String = "Что хотите найти?"
 val CatalogSortingButton: String = "Сортировка"
