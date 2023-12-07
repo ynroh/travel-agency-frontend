@@ -63,13 +63,13 @@ import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_sur
 @Composable
 fun CatalogScreen(navController: NavController){
 
-    val navControllerHomeScreen = rememberNavController()
+    val navControllerCatalogScreen = rememberNavController()
     var sortingBottomSheetVisible by remember { mutableStateOf(false) }
     var filterBottomSheetVisible by remember { mutableStateOf(false) }
 
     Column() {
         NavHost(
-            navController = navControllerHomeScreen,
+            navController = navControllerCatalogScreen,
             startDestination = "main"
         ) {
             composable("main") {
@@ -83,8 +83,11 @@ fun CatalogScreen(navController: NavController){
                         changeButtonSheetFilterVisible = { filterBottomSheetVisible = true }
                     )
                     Spacer(modifier = Modifier.height(11.dp))
-                    CardList()
+                    CardList(navControllerCatalogScreen)
                 }
+            }
+            composable("TourPageScreen") {
+                TourPage(navControllerCatalogScreen)
             }
         }
     }
@@ -212,7 +215,7 @@ fun CatalogButtons(
 }
 
 @Composable
-fun CardList() {
+fun CardList(navController: NavController) {
     val interactionSource = remember { MutableInteractionSource() }
     val listState = rememberLazyListState()
     LazyColumn(
@@ -221,7 +224,7 @@ fun CardList() {
             .fillMaxWidth()
     ) {
         items(count = 10, key = null) { i ->
-            TourPreviewCard()
+            TourPreviewCard(navController)
         }
     }
 }

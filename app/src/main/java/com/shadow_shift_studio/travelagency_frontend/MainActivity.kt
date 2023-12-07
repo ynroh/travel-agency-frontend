@@ -85,7 +85,7 @@ fun NavHostContainer(
     NavHost(
         navController = navController,
 
-        startDestination = "catalog",
+        startDestination = "home",
 
         modifier = Modifier.padding(paddingValues = padding),
 

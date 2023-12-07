@@ -52,6 +52,10 @@ val TextIsCopy: String = "Текст скопирован"
 val Cancel: String = "Отмена"
 val Save: String = "Сохранить"
 val ChangePassword: String = "Сменить пароль"
+val HotToursText: String = "Горящие туры"
+val ForUToursText: String = "Для Вас"
+val RomanticToursText: String = "Для любви"
+val WeekendToursText: String = "На выходные"
 
 val loginErrors: Array<String> = arrayOf(
     "Допустимая длина от 3 до 20 символов",

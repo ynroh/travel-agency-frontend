@@ -30,6 +30,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.shadow_shift_studio.travelagency_frontend.Padding
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_dark_background
@@ -44,7 +45,7 @@ import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_sec
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_secondaryContainer
 
 @Composable
-fun TourPreviewCard(){
+fun TourPreviewCard(navController: NavController){
     val title: String = "Ну мяу или что или гав"
     val price: String = "150 000Р"
     val countrie: String = "Италия"
@@ -53,7 +54,7 @@ fun TourPreviewCard(){
     Card(
         modifier = Modifier
             .height(320.dp)
-            .clickable {}
+            .clickable {navController.navigate("TourPageScreen")}
             .padding(start = Padding.dp, bottom = Padding.dp, end = Padding.dp),
         colors = CardColors(
             md_theme_light_primaryContainer,
@@ -65,9 +66,28 @@ fun TourPreviewCard(){
         Column(modifier = Modifier.fillMaxSize()) {
             Box() {
                 Row() {
-                    GradientImage(
+                   /* GradientImage(
                         startColor = Color.Transparent,
-                        endColor = md_theme_light_primaryContainer
+                        endColor = md_theme_light_primaryContainer,
+                        height = 200,
+                        width = 420,
+                        coverHeightPx = 200
+                    )*/
+                    AsyncImage(
+                        model = "https://icdn.bolshayastrana.com/1200x00/60/f9/60f9f45ffe39364b8128c4e3fe4913e0.jpeg",
+                        contentDescription = "",
+                        contentScale = ContentScale.FillWidth,
+                        modifier = Modifier
+                            .clip(
+                                RoundedCornerShape(
+                                    topStart = 17.dp,
+                                    topEnd = 17.dp,
+                                    bottomStart = 17.dp,
+                                    bottomEnd = 17.dp
+                                )
+                            )
+                            .height(200.dp)
+                            .width(420.dp)
                     )
                 }
                 Row(
@@ -113,11 +133,11 @@ fun TourPreviewCard(){
 }
 
 @Composable
-fun GradientImage(startColor: Color, endColor: Color) {
-    val coverHeightPx = 206
+fun GradientImage(startColor: Color, endColor: Color, height: Int, width: Int, coverHeightPx: Int) {
+    val coverHeightPx = coverHeightPx
     Box(modifier = Modifier.fillMaxSize()) {
-       /* AsyncImage(
-            model = "https://img-cdn.trendymanga.com/covers/upscaled_ab5e34f9-a69d-4d3a-8c45-d480742f9cc5.jpg",
+        AsyncImage(
+            model = "https://icdn.bolshayastrana.com/1200x00/60/f9/60f9f45ffe39364b8128c4e3fe4913e0.jpeg",
             contentDescription = "",
             contentScale = ContentScale.FillWidth,
             modifier = Modifier
@@ -129,10 +149,10 @@ fun GradientImage(startColor: Color, endColor: Color) {
                         bottomEnd = 17.dp
                     )
                 )
-                .height(coverHeightPx.dp)
-                .width(412.dp)
-        )*/
-        Image(
+                .height(height.dp)
+                .width(width.dp)
+        )
+       /* Image(
             modifier = Modifier
                 .clip(
                     RoundedCornerShape(
@@ -142,10 +162,10 @@ fun GradientImage(startColor: Color, endColor: Color) {
                         bottomEnd = 17.dp
                     )
                 )
-                .height(200.dp)
-                .width(420.dp),
+                .height(height.dp)
+                .width(width.dp),
             painter = ColorPainter(Color.Magenta),
-            contentDescription = "Красный прямоугольник")
+            contentDescription = "")*/
         Box(
             modifier = Modifier
                 .drawBehind {
