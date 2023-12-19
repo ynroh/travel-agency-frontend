@@ -1,10 +1,12 @@
 package com.shadow_shift_studio.travelagency_frontend.view.main_screens
 
+import android.annotation.SuppressLint
 import android.provider.ContactsContract
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,6 +22,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -38,14 +41,21 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.shadow_shift_studio.travelagency_frontend.Padding
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_dark_secondary
+import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_inversePrimary
+import com.shadow_shift_studio.travelagency_frontend.ui.theme.yellow
+import com.shadow_shift_studio.travelagency_frontend.view.ImageGallery.FullScreenGallery
+import com.shadow_shift_studio.travelagency_frontend.view.ImageGallery.ImageGallery
+import com.shadow_shift_studio.travelagency_frontend.view.ImageGallery.Photo
+import com.shadow_shift_studio.travelagency_frontend.view.cards.GuideCard
 import com.shadow_shift_studio.travelagency_frontend.view.cards.HomeTourPreviewCard
+import com.shadow_shift_studio.travelagency_frontend.view.cards.TourPointCard
 
-data class Photo(val id: Int, val imageUrl: String)
 
 @Composable
 fun TourPage(navController: NavController){
@@ -73,8 +83,8 @@ fun TourPage(navController: NavController){
         ) {
             ImageGallery(photos = photos) { selectedPhoto = it; isFullScreenGalleryVisible = true }
             Spacer(modifier = Modifier.height(15.dp))
-            Row(modifier = Modifier.fillMaxWidth()
-                //.padding(top = 11.dp, start = 11.dp, end = 11.dp)
+            Row(modifier = Modifier
+                .fillMaxWidth()
                 .background(
                     color = md_theme_dark_secondary,
                     shape = RoundedCornerShape(15.dp)
@@ -83,89 +93,31 @@ fun TourPage(navController: NavController){
                     text = "ДЕНЬ 1\n" +
                         "ДОБРО ПОЖАЛОВАТЬ В ДАГЕСТАН\n" +
                         "Встречаемся и знакомимся с достопримечательностями Махачкалы, посещаем мечеть – Джума. Любуемся видами с Тарки-Тау. Встречаем закат в пустыне Бархан Сарыкум.",
-                        modifier = Modifier
-                            .padding(top = 11.dp, start = 11.dp, end = 11.dp)
+                    modifier = Modifier
+                            .padding(Padding.dp)
                 )
 
             }
-        }
-    }
-}
-
-
-@Composable
-fun ImageGallery(photos: List<Photo>, onPhotoClick: (Photo) -> Unit){
-    val listState = rememberLazyListState()
-        LazyRow(
-            state = listState,
-            modifier = Modifier
+            Spacer(modifier = Modifier.height(15.dp))
+            Row(modifier = Modifier
                 .fillMaxWidth()
-        ) {
-            items(photos.size) { i ->
-                PhotoItem(photo = photos[i], onPhotoClick = onPhotoClick)
+                .background(
+                    color = yellow,
+                    shape = RoundedCornerShape(15.dp)
+                )){
+                GuideCard()
             }
-    }
-}
-
-@Composable
-fun PhotoItem(photo: Photo, onPhotoClick: (Photo) -> Unit) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(4.dp)
-            .clickable { onPhotoClick(photo) }
-    ) {
-        AsyncImage(
-            model = photo.imageUrl,
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .width(400.dp)
-                .height(300.dp)
-                .clip(
-                    RoundedCornerShape(
-                        topStart = 17.dp,
-                        topEnd = 17.dp,
-                        bottomStart = 17.dp,
-                        bottomEnd = 17.dp
-                    )
-                )
-        )
-    }
-}
-
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun FullScreenGallery(selectedPhoto: Photo, photos: List<Photo>, onClose: () -> Unit) {
-    val pagerState = rememberPagerState(pageCount = {
-        photos.size
-    })
-
-    Box(
-        modifier = Modifier
-            .background(Color.Black)
-    ) {
-        VerticalPager(
-            state = pagerState,
-            modifier = Modifier.fillMaxWidth(),
-        ) { page ->
-            AsyncImage(
-                model = photos[page].imageUrl,
-                contentDescription = null,
-               // contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxSize()
-            )
-        }
-
-        IconButton(
-            onClick = onClose,
-            modifier = Modifier
-                .align(Alignment.TopEnd)
-                .padding(16.dp)
-                .statusBarsPadding()
-        ) {
-            Icon(imageVector = Icons.Default.Close, contentDescription = null, tint = Color.White)
+            Spacer(modifier = Modifier.height(15.dp))
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .background(
+                    color = yellow,
+                    shape = RoundedCornerShape(15.dp)
+                )){
+                TourPointCard()
+            }
         }
     }
 }
+
+
