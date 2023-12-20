@@ -149,11 +149,11 @@ fun AuthorizationContent(navController: NavController, onAuthorization: () -> Un
                 coroutineScope.launch {
                     viewModelLogin.loginUser()
 
-                    /*if(viewModelLogin.loginStatusLiveData.value == true) {
+                    if(viewModelLogin.loginStatusLiveData.value == true) {
                         onAuthorization()
                     }
                     else
-                        isTextVisible = true*/
+                        isTextVisible = true
                 }
             },
             content = { Text(text = LoginButtonText, fontSize = 18.sp) }
