@@ -166,7 +166,7 @@ fun CatalogButtons(
         Image(
             painter = ColorPainter(md_theme_light_primary), "",
             modifier = Modifier
-                .width(220.dp)
+                .width(170.dp)
                 .height(2.dp)
         )
         Spacer(modifier = Modifier.width(Padding.dp))

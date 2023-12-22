@@ -5,9 +5,9 @@ import com.shadow_shift_studio.travelagency_frontend.data.service.IRegistrationS
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object HttpClientNotLogin {
+object AuthClient {
     private val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl("http://192.168.0.7:8080")
+        .baseUrl("http://192.168.0.13:8080")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

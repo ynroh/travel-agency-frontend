@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.shadow_shift_studio.travelagency_frontend.Padding
+import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_primary
 
 @Composable
 fun GuideCard(){
@@ -42,6 +43,7 @@ fun GuideCard(){
                     )
             )
             Text(text = name,
+                color = md_theme_light_primary,
                 fontSize = 23.sp,
                 textAlign = TextAlign.Right,
                 lineHeight =35.sp

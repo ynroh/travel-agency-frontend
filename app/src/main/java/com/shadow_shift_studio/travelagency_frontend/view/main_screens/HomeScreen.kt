@@ -171,12 +171,12 @@ fun ToursCompilation(
 
         }
         Row(modifier = Modifier.padding(top = 11.dp, start = 11.dp ,bottom = 11.dp, end = 11.dp)){
-            HorisontalCardList(navController)
+            HorisontalTourCardList(navController)
         }
     }
 }
 @Composable
-fun HorisontalCardList(navController: NavController) {
+fun HorisontalTourCardList(navController: NavController) {
     val interactionSource = remember { MutableInteractionSource() }
     val listState = rememberLazyListState()
     LazyRow(

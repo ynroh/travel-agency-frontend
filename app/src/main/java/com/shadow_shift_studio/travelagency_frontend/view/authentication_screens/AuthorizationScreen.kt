@@ -59,12 +59,14 @@ import com.shadow_shift_studio.travelagency_frontend.RegistrationText
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_dark_surfaceVariant
 import com.shadow_shift_studio.travelagency_frontend.view.main_screens.HomeScreen
 import com.shadow_shift_studio.travelagency_frontend.view_model.authentication.LoginViewModel
+import com.shadow_shift_studio.travelagency_frontend.view_model.authentication.RegistrationViewModel
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun Authorization(navController: NavController, onAuthorization: () -> Unit) {
     val navControllerAuthorization = rememberNavController()
+    val coroutineScope = rememberCoroutineScope()
 
     NavHost(navController = navControllerAuthorization, startDestination = "main") {
         composable("main") {
@@ -102,7 +104,7 @@ fun Authorization(navController: NavController, onAuthorization: () -> Unit) {
             )
         }
         composable("registrationScreen") {
-            //Registration(navControllerAuthorization)
+            Registration(navControllerAuthorization)
         }
         composable("homeScreen") {
             HomeScreen(navControllerAuthorization)

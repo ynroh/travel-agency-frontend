@@ -6,9 +6,13 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,6 +22,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -27,6 +34,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -47,6 +55,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.shadow_shift_studio.travelagency_frontend.Padding
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_dark_secondary
+import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_dark_tertiary
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_inversePrimary
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.yellow
 import com.shadow_shift_studio.travelagency_frontend.view.ImageGallery.FullScreenGallery
@@ -108,16 +117,44 @@ fun TourPage(navController: NavController){
                 GuideCard()
             }
             Spacer(modifier = Modifier.height(15.dp))
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .background(
-                    color = yellow,
-                    shape = RoundedCornerShape(15.dp)
-                )){
-                TourPointCard()
+            Row(
+                modifier = Modifier
+                    .padding(8.dp)
+                    .background(
+                        color = md_theme_dark_tertiary,
+                        shape = RoundedCornerShape(15.dp)
+                    )
+            ) {
+                val listState = rememberLazyListState()
+                LazyRow(
+                    state = listState,
+
+                ) {
+                   items(count = 10, key = null) { i ->
+                       Row(
+                           modifier = Modifier
+                               .padding(8.dp)
+                               .background(
+                                   color = md_theme_dark_tertiary,
+                                   shape = RoundedCornerShape(15.dp)
+                               )) {
+                                   TourPointCard()
+                               }
+                    }
+                }
             }
         }
     }
 }
 
-
+/*
+Row(
+modifier = Modifier
+.padding(8.dp)
+.background(
+color = md_theme_dark_tertiary,
+shape = RoundedCornerShape(15.dp)
+)
+) {
+    TourPointCard()
+}*/

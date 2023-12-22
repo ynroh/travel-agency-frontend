@@ -49,8 +49,8 @@ fun TourPreviewCard(navController: NavController){
     val title: String = "Ну мяу или что или гав"
     val price: String = "150 000Р"
     val countrie: String = "Италия"
-    val duration: String = "5 дней"
-    val tourPrewievInfo = countrie + ", " + duration;
+    val duration: Double = 5.0
+    val tourPrewievInfo = countrie + ", " + duration + " дн.";
     Card(
         modifier = Modifier
             .height(320.dp)

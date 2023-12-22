@@ -29,6 +29,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -48,7 +49,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            var isAuthorization by remember { mutableStateOf(true) }
+            var isAuthorization by remember { mutableStateOf(false) }
             TravelAgencyTheme() {
                 val navController = rememberNavController()
                 Surface {
@@ -131,7 +132,8 @@ fun BottomNavigationBar(navController: NavHostController) {
                 },
 
                 label = {
-                    Text(text = navItem.title)
+                    Text(text = navItem.title,
+                        fontSize = 11.sp)
                 },
 
                 alwaysShowLabel = true
