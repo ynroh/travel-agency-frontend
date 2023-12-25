@@ -179,7 +179,7 @@ fun LoginTextField(viewModelRegistration: RegistrationViewModel, bringIntoViewRe
             },
         placeholder = { Text(CreateLoginHint) },
         label = { Text(CreateLoginHint) },
-        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done, keyboardType = KeyboardType.Phone),
         keyboardActions = KeyboardActions(
             onDone = {focusManager.clearFocus()}
         )

@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.shadow_shift_studio.travelagency_frontend.data.client.AuthClient
 import com.shadow_shift_studio.travelagency_frontend.data.client.KeyStoreManager
+import com.shadow_shift_studio.travelagency_frontend.data.client.RegistrationClient
 import com.shadow_shift_studio.travelagency_frontend.data.credentail.CredentialsForAuthorization
 import com.shadow_shift_studio.travelagency_frontend.domain.repository.ILoginRepository
 import com.shadow_shift_studio.travelagency_frontend.model.api_response.TokenResponse
@@ -16,7 +17,7 @@ import kotlin.coroutines.resume
 class UserAuthorizationRequest : ILoginRepository {
     override suspend fun loginUser(context: Context, login: String, password: String): Boolean {
         // Create an instance of the remote service caller
-        val backendService = AuthClient.loginService
+        val backendService = RegistrationClient.loginService
         // Create an instance with user credentials
         val credentials = CredentialsForAuthorization(login, password)
 

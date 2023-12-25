@@ -192,7 +192,7 @@ fun LoginTextField(viewModelLogin: LoginViewModel,bringIntoViewRequester: BringI
             },
         placeholder = { Text(EnterLoginHint) },
         label = { Text(EnterLoginHint) },
-        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done, keyboardType = KeyboardType.Phone),
         keyboardActions = KeyboardActions(
             onDone = {focusManager.clearFocus()}
         )

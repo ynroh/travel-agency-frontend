@@ -44,6 +44,7 @@ import com.shadow_shift_studio.travelagency_frontend.view.authentication_screens
 import com.shadow_shift_studio.travelagency_frontend.view.main_screens.CatalogScreen
 import com.shadow_shift_studio.travelagency_frontend.view.main_screens.HomeScreen
 import com.shadow_shift_studio.travelagency_frontend.view.navBar.Constants
+import com.shadow_shift_studio.travelagency_frontend.view_model.CatalogViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,6 +83,7 @@ fun NavHostContainer(
     padding: PaddingValues,
 ) {
     val context = LocalContext.current
+    val viewModelCatalog = CatalogViewModel(context)
 
     NavHost(
         navController = navController,
@@ -100,7 +102,7 @@ fun NavHostContainer(
             }
 
             composable("catalog") {
-                CatalogScreen(navController)
+                CatalogScreen(navController, viewModelCatalog)
             }
 
             composable("profile") {
