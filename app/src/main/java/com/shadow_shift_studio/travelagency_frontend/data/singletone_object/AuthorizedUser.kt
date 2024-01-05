@@ -6,4 +6,5 @@ object AuthorizedUser {
     var login = ""
     var id: Long = 0
     var user: User? = null
+    var  isPassportSaved: Boolean = true
 }

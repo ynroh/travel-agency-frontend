@@ -33,7 +33,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddShoppingCart
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -52,6 +54,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.shadow_shift_studio.travelagency_frontend.Padding
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_dark_secondary
@@ -74,75 +79,104 @@ fun TourPage(navController: NavController){
     var photo3 = Photo(2, "https://mykaleidoscope.ru/x/uploads/posts/2022-10/1666194742_50-mykaleidoscope-ru-p-v-dagestane-krasivo-51.jpg")
     var photo4 = Photo(3, "https://a.d-cd.net/tAYNg7WJuxU1M0N-Xa4WmOms-V0-1920.jpg")
 
+    val navControllerTourPage = rememberNavController()
 
     val photos = listOf(photo1, photo2, photo3, photo4)
 
     var selectedPhoto by remember { mutableStateOf(photos.first()) }
     var isFullScreenGalleryVisible by remember { mutableStateOf(false) }
 
-    if (isFullScreenGalleryVisible) {
-        FullScreenGallery(selectedPhoto = selectedPhoto, photos = photos) {
-            isFullScreenGalleryVisible = false
-        }
-    } else {
-        Column(modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(listState)
-            .padding(Padding.dp)
-        ) {
-            ImageGallery(photos = photos) { selectedPhoto = it; isFullScreenGalleryVisible = true }
-            Spacer(modifier = Modifier.height(15.dp))
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .background(
-                    color = md_theme_dark_secondary,
-                    shape = RoundedCornerShape(15.dp)
-                )){
-                Text(
-                    text = "ДЕНЬ 1\n" +
-                        "ДОБРО ПОЖАЛОВАТЬ В ДАГЕСТАН\n" +
-                        "Встречаемся и знакомимся с достопримечательностями Махачкалы, посещаем мечеть – Джума. Любуемся видами с Тарки-Тау. Встречаем закат в пустыне Бархан Сарыкум.",
-                    modifier = Modifier
+    NavHost(
+        navController = navControllerTourPage,
+        startDestination = "main"
+    ) {
+        composable("main") {
+            if (isFullScreenGalleryVisible) {
+                FullScreenGallery(selectedPhoto = selectedPhoto, photos = photos) {
+                    isFullScreenGalleryVisible = false
+                }
+            } else {
+                Box() {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .verticalScroll(listState)
                             .padding(Padding.dp)
-                )
+                    ) {
+                        ImageGallery(photos = photos) {
+                            selectedPhoto = it; isFullScreenGalleryVisible = true
+                        }
+                        Spacer(modifier = Modifier.height(15.dp))
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(
+                                    color = md_theme_dark_secondary,
+                                    shape = RoundedCornerShape(15.dp)
+                                )
+                        ) {
+                            Text(
+                                text = "ДЕНЬ 1\n" +
+                                        "ДОБРО ПОЖАЛОВАТЬ В ДАГЕСТАН\n" +
+                                        "Встречаемся и знакомимся с достопримечательностями Махачкалы, посещаем мечеть – Джума. Любуемся видами с Тарки-Тау. Встречаем закат в пустыне Бархан Сарыкум.",
+                                modifier = Modifier
+                                    .padding(Padding.dp)
+                            )
 
-            }
-            Spacer(modifier = Modifier.height(15.dp))
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .background(
-                    color = yellow,
-                    shape = RoundedCornerShape(15.dp)
-                )){
-                GuideCard()
-            }
-            Spacer(modifier = Modifier.height(15.dp))
-            Row(
-                modifier = Modifier
-                    .padding(8.dp)
-                    .background(
-                        color = md_theme_dark_tertiary,
-                        shape = RoundedCornerShape(15.dp)
-                    )
-            ) {
-                val listState = rememberLazyListState()
-                LazyRow(
-                    state = listState,
+                        }
+                        Spacer(modifier = Modifier.height(15.dp))
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(
+                                    color = yellow,
+                                    shape = RoundedCornerShape(15.dp)
+                                )
+                        ) {
+                            GuideCard()
+                        }
+                        Spacer(modifier = Modifier.height(15.dp))
+                        Row(
+                            modifier = Modifier
+                                .padding(8.dp)
+                                .background(
+                                    color = md_theme_dark_tertiary,
+                                    shape = RoundedCornerShape(15.dp)
+                                )
+                        ) {
+                            val listState = rememberLazyListState()
+                            LazyRow(
+                                state = listState,
 
-                ) {
-                   items(count = 10, key = null) { i ->
-                       Row(
-                           modifier = Modifier
-                               .padding(8.dp)
-                               .background(
-                                   color = md_theme_dark_tertiary,
-                                   shape = RoundedCornerShape(15.dp)
-                               )) {
-                                   TourPointCard()
-                               }
+                                ) {
+                                items(count = 10, key = null) { i ->
+                                    Row(
+                                        modifier = Modifier
+                                            .padding(8.dp)
+                                            .background(
+                                                color = md_theme_dark_tertiary,
+                                                shape = RoundedCornerShape(15.dp)
+                                            )
+                                    ) {
+                                        TourPointCard()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    Button(
+                        onClick = { navControllerTourPage.navigate("TripScreen") },
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .padding(Padding.dp)
+                    ) {
+                        Icon(Icons.Default.AddShoppingCart, "")
                     }
                 }
             }
+        }
+        composable("TripScreen") {
+            TripScreen(navControllerTourPage)
         }
     }
 }
