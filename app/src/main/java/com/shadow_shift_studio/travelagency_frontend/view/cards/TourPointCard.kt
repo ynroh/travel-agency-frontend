@@ -1,6 +1,5 @@
 package com.shadow_shift_studio.travelagency_frontend.view.cards
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,9 +12,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -29,11 +26,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextLayoutResult
-import androidx.compose.ui.text.style.Hyphens
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.IntSize
@@ -43,12 +37,8 @@ import coil.compose.AsyncImage
 import com.shadow_shift_studio.travelagency_frontend.Padding
 import com.shadow_shift_studio.travelagency_frontend.model.entity.Excursion
 import com.shadow_shift_studio.travelagency_frontend.model.entity.Hotel
-import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_dark_onSurface
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_primary
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_surfaceTint
-import com.shadow_shift_studio.travelagency_frontend.view.ImageGallery.FullScreenGallery
-import com.shadow_shift_studio.travelagency_frontend.view.ImageGallery.ImageGallery
-import com.shadow_shift_studio.travelagency_frontend.view.ImageGallery.Photo
 
 @Composable
 fun TourPointCard() {

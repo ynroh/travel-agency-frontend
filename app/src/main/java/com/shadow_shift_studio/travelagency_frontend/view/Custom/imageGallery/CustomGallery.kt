@@ -1,4 +1,4 @@
-package com.shadow_shift_studio.travelagency_frontend.view.ImageGallery
+package com.shadow_shift_studio.travelagency_frontend.view.Custom.imageGallery
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
