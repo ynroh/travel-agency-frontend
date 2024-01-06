@@ -50,6 +50,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -90,7 +91,7 @@ fun CatalogScreen(navController: NavController, viewModel: CatalogViewModel){
     val navControllerCatalogScreen = rememberNavController()
     var sortingBottomSheetVisible by remember { mutableStateOf(false) }
     var filterBottomSheetVisible by remember { mutableStateOf(false) }
-
+    var idValue by remember { mutableLongStateOf(0) }
 
     Column() {
         NavHost(
@@ -108,7 +109,8 @@ fun CatalogScreen(navController: NavController, viewModel: CatalogViewModel){
                         changeButtonSheetFilterVisible = { filterBottomSheetVisible = true }
                     )
                     Spacer(modifier = Modifier.height(11.dp))
-                    CardList(navControllerCatalogScreen, viewModel)
+                    CardList(navControllerCatalogScreen, viewModel){ id: Long ->
+                    idValue = id}
                 }
             }
             composable("TourPageScreen") {
@@ -135,7 +137,7 @@ fun CatalogScreen(navController: NavController, viewModel: CatalogViewModel){
 }
 
 @Composable
-fun CardList(navController: NavController, viewModel:CatalogViewModel) {
+fun CardList(navController: NavController, viewModel:CatalogViewModel, onId: (id : Long) -> Unit) {
     val interactionSource = remember { MutableInteractionSource() }
     val listState = rememberLazyListState()
     val catalogState = remember { mutableStateOf<List<TourPreview>?>(null) }
@@ -160,8 +162,10 @@ fun CardList(navController: NavController, viewModel:CatalogViewModel) {
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            items(count = 10, key = null) { i ->
-                TourPreviewCard(navController)
+            catalogState.value?.let {
+                items(count = it.size, key = null) { index ->
+                    TourPreviewCard(navController, it[index], onId)
+                }
             }
         }
     }

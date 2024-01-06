@@ -1,6 +1,5 @@
 package com.shadow_shift_studio.travelagency_frontend.view.cards
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -12,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -25,36 +23,33 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.shadow_shift_studio.travelagency_frontend.Padding
-import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_dark_background
-import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_dark_inversePrimary
+import com.shadow_shift_studio.travelagency_frontend.model.entity.TourPreview
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_dark_inverseSurface
-import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_dark_onPrimary
-import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_background
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_onPrimaryContainer
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_primary
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_primaryContainer
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_secondary
-import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_secondaryContainer
 
 @Composable
-fun TourPreviewCard(navController: NavController){
-    val title: String = "Ну мяу или что или гав"
-    val price: String = "150 000Р"
-    val countrie: String = "Италия"
-    val duration: Double = 5.0
-    val tourPrewievInfo = countrie + ", " + duration + " дн.";
+fun TourPreviewCard(navController: NavController, tour: TourPreview, onId: (id : Long) -> Unit){
+    val title: String = tour.title
+    val price: String = tour.cost.toString()
+    val countrie: String = tour.country.name
+    val duration: Double = tour.stayDuration
+    val tourPrewievInfo = countrie + ", " + duration + " дн."
+    val photo: String = tour.photoUrl
     Card(
         modifier = Modifier
             .height(320.dp)
-            .clickable {navController.navigate("TourPageScreen")}
+            .clickable {
+                tour.id?.let { onId(it) }
+                navController.navigate("TourPageScreen")}
             .padding(start = Padding.dp, bottom = Padding.dp, end = Padding.dp),
         colors = CardColors(
             md_theme_light_primaryContainer,
@@ -66,15 +61,8 @@ fun TourPreviewCard(navController: NavController){
         Column(modifier = Modifier.fillMaxSize()) {
             Box() {
                 Row() {
-                   /* GradientImage(
-                        startColor = Color.Transparent,
-                        endColor = md_theme_light_primaryContainer,
-                        height = 200,
-                        width = 420,
-                        coverHeightPx = 200
-                    )*/
                     AsyncImage(
-                        model = "https://icdn.bolshayastrana.com/1200x00/60/f9/60f9f45ffe39364b8128c4e3fe4913e0.jpeg",
+                        model = photo,
                         contentDescription = "",
                         contentScale = ContentScale.FillWidth,
                         modifier = Modifier
@@ -129,59 +117,5 @@ fun TourPreviewCard(navController: NavController){
                 }
             }
         }
-    }
-}
-
-@Composable
-fun GradientImage(startColor: Color, endColor: Color, height: Int, width: Int, coverHeightPx: Int) {
-    val coverHeightPx = coverHeightPx
-    Box(modifier = Modifier.fillMaxSize()) {
-        AsyncImage(
-            model = "https://icdn.bolshayastrana.com/1200x00/60/f9/60f9f45ffe39364b8128c4e3fe4913e0.jpeg",
-            contentDescription = "",
-            contentScale = ContentScale.FillWidth,
-            modifier = Modifier
-                .clip(
-                    RoundedCornerShape(
-                        topStart = 17.dp,
-                        topEnd = 17.dp,
-                        bottomStart = 17.dp,
-                        bottomEnd = 17.dp
-                    )
-                )
-                .height(height.dp)
-                .width(width.dp)
-        )
-       /* Image(
-            modifier = Modifier
-                .clip(
-                    RoundedCornerShape(
-                        topStart = 17.dp,
-                        topEnd = 17.dp,
-                        bottomStart = 17.dp,
-                        bottomEnd = 17.dp
-                    )
-                )
-                .height(height.dp)
-                .width(width.dp),
-            painter = ColorPainter(Color.Magenta),
-            contentDescription = "")*/
-        Box(
-            modifier = Modifier
-                .drawBehind {
-                    val gradientBrush = Brush.verticalGradient(
-                        colors = listOf(startColor, endColor),
-                        startY = size.height - size.width,
-                        endY = size.height
-                    )
-
-                    drawRect(brush = gradientBrush)
-                }
-                .padding(top = (coverHeightPx).dp)
-                .fillMaxWidth()
-                .wrapContentSize(Alignment.BottomCenter)
-                .background(Color.Transparent)
-        )
-
     }
 }
