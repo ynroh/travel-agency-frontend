@@ -43,6 +43,7 @@ import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_bac
 import com.shadow_shift_studio.travelagency_frontend.view.authentication_screens.Authorization
 import com.shadow_shift_studio.travelagency_frontend.view.main_screens.CatalogScreen
 import com.shadow_shift_studio.travelagency_frontend.view.main_screens.HomeScreen
+import com.shadow_shift_studio.travelagency_frontend.view.main_screens.ProfileScreen
 import com.shadow_shift_studio.travelagency_frontend.view.navBar.Constants
 import com.shadow_shift_studio.travelagency_frontend.view_model.CatalogViewModel
 
@@ -106,6 +107,7 @@ fun NavHostContainer(
             }
 
             composable("profile") {
+                ProfileScreen(navController)
             }
         })
 

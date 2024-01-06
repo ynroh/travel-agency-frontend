@@ -58,7 +58,6 @@ import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_sur
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_surfaceVariant
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_tertiary
 import com.shadow_shift_studio.travelagency_frontend.view.cards.HomeTourPreviewCard
-import com.shadow_shift_studio.travelagency_frontend.view.cards.TourPreviewCard
 
 @Composable
 fun HomeScreen(navController: NavController)
