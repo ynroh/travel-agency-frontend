@@ -6,8 +6,10 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.shadow_shift_studio.travelagency_frontend.data.api_request.CountryRequest
 import com.shadow_shift_studio.travelagency_frontend.data.api_request.ToursListRequest
 import com.shadow_shift_studio.travelagency_frontend.data.singletone_object.Filter
+import com.shadow_shift_studio.travelagency_frontend.domain.use_case.CountryUseCase
 import com.shadow_shift_studio.travelagency_frontend.domain.use_case.ToursListUseCase
 import com.shadow_shift_studio.travelagency_frontend.model.entity.Country
 import com.shadow_shift_studio.travelagency_frontend.model.entity.TourPreview
@@ -21,9 +23,12 @@ class CatalogViewModel(@SuppressLint("StaticFieldLeak") private val context: Con
 
     private val getCatalog: ToursListUseCase =
         ToursListUseCase(ToursListRequest())
+
+    private val getCountry: CountryUseCase =
+        CountryUseCase(CountryRequest())
     suspend fun getCountries() {
         viewModelScope.launch {
-            val countries = getCatalog.getCountries(context)
+            val countries = getCountry.getCountries(context)
             countriesLiveData.value = countries
         }.join()
     }

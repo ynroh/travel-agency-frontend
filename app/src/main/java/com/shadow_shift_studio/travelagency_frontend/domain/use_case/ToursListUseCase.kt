@@ -10,7 +10,4 @@ class ToursListUseCase(private val catalog: IToursListRepository) {
         return catalog.getCatalog(context)
     }
 
-    suspend fun getCountries(context: Context): List<Country> {
-        return catalog.getCountries(context)
-    }
 }
