@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface IToursListService {
     @JvmSuppressWildcards
-    @GET("/tours/catalog")
+    @GET("/tour/catalog")
     fun getCatalog(): Call<List<TourPreview>>
 
     @GET("/country/all")

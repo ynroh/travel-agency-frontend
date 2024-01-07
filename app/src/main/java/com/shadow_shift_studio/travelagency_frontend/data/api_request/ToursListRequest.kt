@@ -17,7 +17,7 @@ class ToursListRequest: IToursListRepository {
 
         val backendService = AuthClient.CatalogService
 
-        val titleForErrorResponse = listOf<TourPreview>()
+        val tourForErrorResponse = listOf<TourPreview>()
 
         try {
             return suspendCancellableCoroutine { continuation ->
@@ -30,16 +30,16 @@ class ToursListRequest: IToursListRepository {
                             if (responseBody != null) {
                                 continuation.resume(responseBody)
                             } else {
-                                continuation.resume(titleForErrorResponse)
+                                continuation.resume(tourForErrorResponse)
                             }
                         } else {
                             Log.e("Tours get error", response.errorBody().toString())
-                            continuation.resume(titleForErrorResponse)
+                            continuation.resume(tourForErrorResponse)
                         }
                     }
                     override fun onFailure(call: Call<List<TourPreview>>, t: Throwable) {
                         Log.e("Network client error", t.message ?: "HTTP client failed to connect")
-                        continuation.resume(titleForErrorResponse)
+                        continuation.resume(tourForErrorResponse)
                     }
                 })
 
@@ -51,13 +51,13 @@ class ToursListRequest: IToursListRepository {
             Log.e("Unknown Error", e.toString())
         }
 
-        return titleForErrorResponse
+        return tourForErrorResponse
     }
 
     override suspend fun getCountries(context: Context): List<Country> {
         val backendService = AuthClient.CatalogService
 
-        val genresForErrorResponse = listOf<Country>()
+        val countryForErrorResponse = listOf<Country>()
 
         try {
             return suspendCancellableCoroutine { continuation ->
@@ -70,17 +70,17 @@ class ToursListRequest: IToursListRepository {
                             if (responseBody != null) {
                                 continuation.resume(responseBody)
                             } else {
-                                continuation.resume(genresForErrorResponse)
+                                continuation.resume(countryForErrorResponse)
                             }
                         } else {
                             Log.e("Countries get error", response.errorBody().toString())
-                            continuation.resume(genresForErrorResponse)
+                            continuation.resume(countryForErrorResponse)
                         }
                     }
 
                     override fun onFailure(call: Call<List<Country>>, t: Throwable) {
                         Log.e("Network client error", t.message ?: "HTTP client failed to connect")
-                        continuation.resume(genresForErrorResponse)
+                        continuation.resume(countryForErrorResponse)
                     }
                 })
 
@@ -92,7 +92,7 @@ class ToursListRequest: IToursListRepository {
             Log.e("Unknown Error", e.toString())
         }
 
-        return genresForErrorResponse
+        return countryForErrorResponse
     }
 
 }

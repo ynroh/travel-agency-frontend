@@ -93,6 +93,10 @@ fun CatalogScreen(navController: NavController, viewModel: CatalogViewModel){
     var filterBottomSheetVisible by remember { mutableStateOf(false) }
     var idValue by remember { mutableLongStateOf(0) }
 
+    LaunchedEffect(viewModel) {
+        viewModel.getCatalog()
+    }
+
     Column() {
         NavHost(
             navController = navControllerCatalogScreen,
@@ -361,6 +365,7 @@ fun FilterButtonSheet(onClose: () -> Unit, viewModel: CatalogViewModel) {
     LaunchedEffect(viewModel) {
         viewModel.getCountries()
     }
+
 
     DisposableEffect(viewModel) {
         viewModel.countriesLiveData.observeForever(countriesObserver)

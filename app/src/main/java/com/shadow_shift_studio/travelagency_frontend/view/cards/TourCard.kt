@@ -43,7 +43,8 @@ fun TourPreviewCard(navController: NavController, tour: TourPreview, onId: (id :
     val countrie: String = tour.country.name
     val duration: Double = tour.stayDuration
     val tourPrewievInfo = countrie + ", " + duration + " дн."
-    val photo: String = tour.photoUrl
+    //val photo: String = tour.photoUrl[0]
+    val photo: String = "https://ic.pics.livejournal.com/mg5642/66429722/2348596/2348596_original.jpg"
     Card(
         modifier = Modifier
             .height(320.dp)

@@ -51,7 +51,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            var isAuthorization by remember { mutableStateOf(true) }
+            var isAuthorization by remember { mutableStateOf(false) }
             TravelAgencyTheme() {
                 val navController = rememberNavController()
                 Surface {

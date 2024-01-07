@@ -82,24 +82,6 @@ fun TourPage(navController: NavController){
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .background(
-                                    color = md_theme_dark_secondary,
-                                    shape = RoundedCornerShape(15.dp)
-                                )
-                        ) {
-                            Text(
-                                text = "ДЕНЬ 1\n" +
-                                        "ДОБРО ПОЖАЛОВАТЬ В ДАГЕСТАН\n" +
-                                        "Встречаемся и знакомимся с достопримечательностями Махачкалы, посещаем мечеть – Джума. Любуемся видами с Тарки-Тау. Встречаем закат в пустыне Бархан Сарыкум.",
-                                modifier = Modifier
-                                    .padding(Padding.dp)
-                            )
-
-                        }
-                        Spacer(modifier = Modifier.height(15.dp))
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .background(
                                     color = yellow,
                                     shape = RoundedCornerShape(15.dp)
                                 )
