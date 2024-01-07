@@ -7,5 +7,5 @@ import retrofit2.http.GET
 interface ICountryService {
     @JvmSuppressWildcards
     @GET("/country/all")
-    fun getCountry(): Call<List<Country>>
+    fun getCountries(): Call<List<Country>>
 }

@@ -1,6 +1,5 @@
 package com.shadow_shift_studio.travelagency_frontend.view.main_screens
 
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
@@ -29,6 +28,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ArrowRight
@@ -62,6 +63,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.ColorPainter
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Observer
@@ -92,6 +96,10 @@ fun CatalogScreen(navController: NavController, viewModel: CatalogViewModel){
     var sortingBottomSheetVisible by remember { mutableStateOf(false) }
     var filterBottomSheetVisible by remember { mutableStateOf(false) }
     var idValue by remember { mutableLongStateOf(0) }
+
+    LaunchedEffect(viewModel) {
+        viewModel.getCountries()
+    }
 
     LaunchedEffect(viewModel) {
         viewModel.getCatalog()
@@ -362,9 +370,7 @@ fun FilterButtonSheet(onClose: () -> Unit, viewModel: CatalogViewModel) {
         countriesState.value = newCountries
     }
 
-    LaunchedEffect(viewModel) {
-        viewModel.getCountries()
-    }
+
 
 
     DisposableEffect(viewModel) {
@@ -389,7 +395,6 @@ fun FilterButtonSheet(onClose: () -> Unit, viewModel: CatalogViewModel) {
         containerColor = md_theme_dark_onPrimary
     ) {
         countriesState.value?.let { countriesState.value?.let { it1 -> FilterButtons(it1, viewModel) { onClose() } } }
-        //it1 -> FilterButtons(it1, viewModel) { onClose() }
     }
 }
 
@@ -443,27 +448,118 @@ fun FilterButtons(countries: List<Country>, viewModel: CatalogViewModel, onClose
 @Composable
 fun ButtonPrice()
 {
-    val min = remember{mutableStateOf("")}
-    val max = remember{mutableStateOf("150000")}
+    var min by remember{mutableStateOf("")}
+    var max by remember{mutableStateOf("")}
 
-    Text(text = "Цена")
-    Row(horizontalArrangement = Arrangement.SpaceBetween)
-    {
-        TextField(
-            value = min.value,
-            onValueChange = {newText -> min.value = newText},
-            placeholder = {Text("От")}
-        )
-        TextField(
-            value = max.value,
-            onValueChange = {newText -> max.value = newText},
-            placeholder = {Text("До")}
+    val isPriceExpanded = remember { mutableStateOf(false) }
+    val focusManager = LocalFocusManager.current
+
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 23.dp, end = 23.dp)
+            .clip(RoundedCornerShape(16.dp))
+            .background(md_theme_dark_bottom_sheet_bottoms)
+    ) {
+        Button(
+            onClick = { isPriceExpanded.value = !isPriceExpanded.value },
+            modifier = Modifier
+                .fillMaxWidth(),
+            colors = ButtonColors(
+                md_theme_dark_bottom_sheet_bottoms,
+                md_theme_light_surfaceVariant,
+                Color.White,
+                Color.White
+            )
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(text = "Цена",
+                    color = md_theme_dark_onPrimary)
+                if (!isPriceExpanded.value) Icon(
+                    Icons.Default.ArrowRight,
+                    contentDescription = ""
+                )
+                else Icon(Icons.Default.ArrowDropDown, contentDescription = "", tint = md_theme_dark_onPrimary)
+            }
+        }
+        AnimatedVisibility(
+            visible = isPriceExpanded.value,
+            enter = expandVertically(
+                spring(
+                    stiffness = Spring.StiffnessLow,
+                    visibilityThreshold = IntSize.VisibilityThreshold
+                )
+            ),
+            exit = shrinkVertically(),
+            content = {
+                Column(
+                    modifier = Modifier
+                        .animateContentSize()
+                        .padding(start = 23.dp, end = 23.dp)
+                ) {
+                    Column(Modifier.fillMaxWidth())
+                    {
+                        TextField(
+                            value = min,
+                            onValueChange = {
+                                    newText -> min = newText
+                                    if(min != "" && min != null) {
+                                        Filter.selectedMinPrice.value = min.toInt()
+                                    }
+                                    else {
+                                        Filter.selectedMinPrice.value = 0
+                                    }},
+                            maxLines = 1,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(8.dp)),
+                            placeholder = { Text("От") },
+                            label = { Text("От") },
+                            keyboardOptions = KeyboardOptions(
+                                imeAction = ImeAction.Done,
+                                keyboardType = KeyboardType.Phone
+                            ),
+                            keyboardActions = KeyboardActions(
+                                onDone = { focusManager.clearFocus() }
+                            )
+                        )
+                        Spacer(Modifier.height(15.dp))
+                        TextField(
+                            value = max,
+                            onValueChange = {
+                                    newText -> max = newText
+                                    if(max != "" && max != null) {
+                                        Filter.selectedMinPrice.value = max.toInt()
+                                    }
+                                    else {
+                                        Filter.selectedMinPrice.value = 150000
+                                    }},
+                            maxLines = 1,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(8.dp)),
+                            placeholder = { Text("До") },
+                            label = { Text("До") },
+                            keyboardOptions = KeyboardOptions(
+                                imeAction = ImeAction.Done,
+                                keyboardType = KeyboardType.Phone
+                            ),
+                            keyboardActions = KeyboardActions(
+                                onDone = { focusManager.clearFocus() }
+                            )
+                        )
+                        Spacer(Modifier.height(15.dp))
+
+                    }
+                }
+            }
         )
     }
-
-    Filter.selectedMinPrice.value = min.value.toInt()
-    Filter.selectedMaxPrice.value = max.value.toInt()
-
 }
 
 @Composable
@@ -504,12 +600,13 @@ fun ButtonsDuration() {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = "Длительность")
+                Text(text = "Длительность",
+                    color = md_theme_dark_onPrimary)
                 if (!isTitleStatusExpanded.value) Icon(
                     Icons.Default.ArrowRight,
                     contentDescription = ""
                 )
-                else Icon(Icons.Default.ArrowDropDown, contentDescription = "")
+                else Icon(Icons.Default.ArrowDropDown, contentDescription = "", tint=md_theme_dark_onPrimary)
             }
         }
         AnimatedVisibility(
@@ -541,7 +638,8 @@ fun ButtonsDuration() {
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text(text = "1-2 дня")
+                            Text(text = "1-2 дня",
+                                color = md_theme_dark_onPrimary)
                             Checkbox(
                                 checked = isOneTwoSelected.value,
                                 onCheckedChange = { isChecked ->
@@ -570,7 +668,8 @@ fun ButtonsDuration() {
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text(text = "3-5 дней")
+                            Text(text = "3-5 дней",
+                                color = md_theme_dark_onPrimary)
                             Checkbox(
                                 checked = isThreeFiveSelected.value,
                                 onCheckedChange = { isChecked ->
@@ -600,7 +699,8 @@ fun ButtonsDuration() {
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text(text = "7-10 дней")
+                            Text(text = "7-10 дней",
+                                color = md_theme_dark_onPrimary)
                             Checkbox(
                                 checked = isSevenTenSelected.value,
                                 onCheckedChange = { isChecked ->
@@ -629,7 +729,8 @@ fun ButtonsDuration() {
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text(text = "11-14 дней")
+                            Text(text = "11-14 дней",
+                                color = md_theme_dark_onPrimary)
                             Checkbox(
                                 checked = isElevenFourteenSelected.value,
                                 onCheckedChange = { isChecked ->
@@ -655,7 +756,7 @@ fun ButtonsDuration() {
 
 @Composable
 fun ButtonsCountry(countries: List<Country>, viewModel: CatalogViewModel) {
-    val isCategoryExpanded = remember { mutableStateOf(false) }
+    val isCountryExpanded = remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -665,7 +766,7 @@ fun ButtonsCountry(countries: List<Country>, viewModel: CatalogViewModel) {
             .background(md_theme_dark_bottom_sheet_bottoms)
     ) {
         Button(
-            onClick = { isCategoryExpanded.value = !isCategoryExpanded.value },
+            onClick = { isCountryExpanded.value = !isCountryExpanded.value },
             modifier = Modifier
                 .fillMaxWidth(),
             colors = ButtonColors(
@@ -680,16 +781,17 @@ fun ButtonsCountry(countries: List<Country>, viewModel: CatalogViewModel) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = "Страна")
-                if (!isCategoryExpanded.value) Icon(
+                Text(text = "Страна",
+                    color = md_theme_dark_onPrimary)
+                if (!isCountryExpanded.value) Icon(
                     Icons.Default.ArrowRight,
                     contentDescription = ""
                 )
-                else Icon(Icons.Default.ArrowDropDown, contentDescription = "")
+                else Icon(Icons.Default.ArrowDropDown, contentDescription = "", tint = md_theme_dark_onPrimary)
             }
         }
         AnimatedVisibility(
-            visible = isCategoryExpanded.value,
+            visible = isCountryExpanded.value,
             enter = expandVertically(
                 spring(
                     stiffness = Spring.StiffnessLow,

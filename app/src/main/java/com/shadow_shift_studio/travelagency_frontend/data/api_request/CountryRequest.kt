@@ -19,7 +19,7 @@ class CountryRequest: ICountyRepository {
 
         try {
             return suspendCancellableCoroutine { continuation ->
-                val call = backendService.getCountry()
+                val call = backendService.getCountries()
 
                 call.enqueue(object : Callback<List<Country>> {
                     override fun onResponse(call: Call<List<Country>>, response: Response<List<Country>>) {
