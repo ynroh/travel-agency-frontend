@@ -72,7 +72,7 @@ fun Authorization(navController: NavController, onAuthorization: () -> Unit) {
         composable("main") {
             Scaffold(
                 modifier = Modifier.fillMaxSize(),
-                topBar = {
+                /*topBar = {
                     Row(
                         horizontalArrangement = Arrangement.End,
                         modifier = Modifier.fillMaxWidth()
@@ -84,7 +84,7 @@ fun Authorization(navController: NavController, onAuthorization: () -> Unit) {
                             "close"
                         )
                     }
-                }},
+                }},*/
                 content = { AuthorizationContent(navController, onAuthorization) },
                 bottomBar = {
                     Row(
@@ -107,7 +107,7 @@ fun Authorization(navController: NavController, onAuthorization: () -> Unit) {
             Registration(navControllerAuthorization)
         }
         composable("homeScreen") {
-            HomeScreen(navControllerAuthorization)
+            //HomeScreen(navControllerAuthorization,)
         }
     }
 }

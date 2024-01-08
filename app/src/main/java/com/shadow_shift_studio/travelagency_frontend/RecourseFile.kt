@@ -53,7 +53,7 @@ val Cancel: String = "Отмена"
 val Save: String = "Сохранить"
 val ChangePassword: String = "Сменить пароль"
 val HotToursText: String = "Горящие туры"
-val ForUToursText: String = "Для Вас"
+val ForVacationToursText: String = "В отпуск"
 val RomanticToursText: String = "Для любви"
 val WeekendToursText: String = "На выходные"
 

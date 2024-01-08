@@ -14,8 +14,8 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel(private val context: Context): ViewModel() {
 
-    var login: MutableState<String> = mutableStateOf("")
-    var password: MutableState<String> = mutableStateOf("")
+    var login: MutableState<String> = mutableStateOf("521")
+    var password: MutableState<String> = mutableStateOf("521")
 
     val loginStatusLiveData: MutableLiveData<Boolean> = MutableLiveData()
 

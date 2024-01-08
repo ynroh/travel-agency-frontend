@@ -370,9 +370,6 @@ fun FilterButtonSheet(onClose: () -> Unit, viewModel: CatalogViewModel) {
         countriesState.value = newCountries
     }
 
-
-
-
     DisposableEffect(viewModel) {
         viewModel.countriesLiveData.observeForever(countriesObserver)
 

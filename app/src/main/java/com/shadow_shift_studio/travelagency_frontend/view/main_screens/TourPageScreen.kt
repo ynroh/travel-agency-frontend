@@ -32,6 +32,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.shadow_shift_studio.travelagency_frontend.Padding
+import com.shadow_shift_studio.travelagency_frontend.model.entity.TourPreview
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_dark_secondary
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_dark_tertiary
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.yellow

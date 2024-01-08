@@ -2,7 +2,6 @@ package com.shadow_shift_studio.travelagency_frontend.view_model
 
 import android.annotation.SuppressLint
 import android.content.Context
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,6 +10,7 @@ import com.shadow_shift_studio.travelagency_frontend.data.api_request.ToursListR
 import com.shadow_shift_studio.travelagency_frontend.data.singletone_object.Filter
 import com.shadow_shift_studio.travelagency_frontend.domain.use_case.CountryUseCase
 import com.shadow_shift_studio.travelagency_frontend.domain.use_case.ToursListUseCase
+import com.shadow_shift_studio.travelagency_frontend.model.entity.CompilationFilter
 import com.shadow_shift_studio.travelagency_frontend.model.entity.Country
 import com.shadow_shift_studio.travelagency_frontend.model.entity.TourPreview
 import com.shadow_shift_studio.travelagency_frontend.model.enum.DurationCategory
@@ -45,5 +45,25 @@ class CatalogViewModel(@SuppressLint("StaticFieldLeak") private val context: Con
 
             catalogTours.value = filteredTours
         }.join()
+    }
+
+    suspend fun getCatalogCompilation(compilationFilter: CompilationFilter): MutableList<TourPreview> {
+
+        var filteredTours: List<TourPreview> = arrayListOf<TourPreview>()
+        var result: MutableList<TourPreview> = mutableListOf()
+        viewModelScope.launch {
+            val allTours = getCatalog.getCatalog(context)
+
+            filteredTours = allTours.filter { tour ->
+                compilationFilter.selectedCountries.isEmpty() || tour.country.name in compilationFilter.selectedCountries
+                compilationFilter.selectedDuration.isEmpty() || tour.stayDuration in compilationFilter.selectedDurationToDouble
+            }
+
+            for (tour in filteredTours)
+                result.add(tour)
+
+        }.join()
+
+        return result
     }
 }

@@ -81,7 +81,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun NavHostContainer(
     navController: NavHostController,
-    padding: PaddingValues,
+    padding: PaddingValues
 ) {
     val context = LocalContext.current
     val viewModelCatalog = CatalogViewModel(context)
@@ -96,7 +96,7 @@ fun NavHostContainer(
         builder = {
 
             composable("home") {
-                HomeScreen(navController);
+                HomeScreen(navController, viewModelCatalog);
             }
 
             composable("constructor") {

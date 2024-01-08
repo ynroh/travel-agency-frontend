@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.shadow_shift_studio.travelagency_frontend.Padding
+import com.shadow_shift_studio.travelagency_frontend.model.entity.TourPreview
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_dark_inverseSurface
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_onPrimaryContainer
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_primary
@@ -33,17 +34,20 @@ import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_sec
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_secondaryContainer
 
 @Composable
-fun HomeTourPreviewCard(navController: NavController){
-    val title: String = "Ну мяу или что или гав"
-    val price: String = "150 000Р"
-    val countrie: String = "Италия"
-    val duration: String = "5 дней"
+fun HomeTourPreviewCard(navController: NavController, tour: TourPreview, onId: (id : Long) -> Unit){
+    val title: String = tour.title
+    val price: String = tour.cost.toString()
+    val countrie: String = tour.country.name
+    val duration: String = tour.stayDuration.toString()
     val tourPrewievInfo = countrie + ", " + duration;
     val photo = "https://ic.pics.livejournal.com/mg5642/66429722/2348596/2348596_original.jpg"
     Card(
         modifier = Modifier
             .height(200.dp)
-            .clickable {navController.navigate("TourPageScreen")}
+            .clickable {
+                tour.id?.let { onId(it) }
+                navController.navigate("TourPageScreen")
+            }
             .padding(end = 11.dp),
         colors = CardColors(
             Color.White,
