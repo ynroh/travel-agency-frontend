@@ -95,7 +95,8 @@ fun CatalogScreen(navController: NavController, viewModel: CatalogViewModel){
     val navControllerCatalogScreen = rememberNavController()
     var sortingBottomSheetVisible by remember { mutableStateOf(false) }
     var filterBottomSheetVisible by remember { mutableStateOf(false) }
-    var idValue by remember { mutableLongStateOf(0) }
+    //var idValue by remember { mutableLongStateOf(0) }
+    var tourValue by remember { mutableStateOf<TourPreview>(TourPreview(null, null, null, null, null, null, null, null)) }
 
     LaunchedEffect(viewModel) {
         viewModel.getCountries()
@@ -121,12 +122,12 @@ fun CatalogScreen(navController: NavController, viewModel: CatalogViewModel){
                         changeButtonSheetFilterVisible = { filterBottomSheetVisible = true }
                     )
                     Spacer(modifier = Modifier.height(11.dp))
-                    CardList(navControllerCatalogScreen, viewModel){ id: Long ->
-                    idValue = id}
+                    CardList(navControllerCatalogScreen, viewModel){ tour: TourPreview->
+                    tourValue = tour}
                 }
             }
             composable("TourPageScreen") {
-                TourPage(navControllerCatalogScreen)
+                TourPage(navControllerCatalogScreen, tourValue)
             }
         }
     }
@@ -149,7 +150,7 @@ fun CatalogScreen(navController: NavController, viewModel: CatalogViewModel){
 }
 
 @Composable
-fun CardList(navController: NavController, viewModel:CatalogViewModel, onId: (id : Long) -> Unit) {
+fun CardList(navController: NavController, viewModel:CatalogViewModel, onId: (tour: TourPreview) -> Unit) {
     val interactionSource = remember { MutableInteractionSource() }
     val listState = rememberLazyListState()
     val catalogState = remember { mutableStateOf<List<TourPreview>?>(null) }

@@ -38,8 +38,8 @@ class CatalogViewModel(@SuppressLint("StaticFieldLeak") private val context: Con
             val allTours = getCatalog.getCatalog(context)
 
             val filteredTours = allTours.filter { tour ->
-                Filter.selectedCountries.isEmpty() || tour.country.name in Filter.selectedCountries
-                (Filter.selectedMinPrice.value <= tour.cost.toInt() && tour.cost.toInt() <= Filter.selectedMaxPrice.value)
+                Filter.selectedCountries.isEmpty() || tour.country?.name in Filter.selectedCountries
+                (Filter.selectedMinPrice.value <= tour.cost?.toInt()!! && tour.cost?.toInt()!! <= Filter.selectedMaxPrice.value)
                 Filter.selectedDuration.isEmpty() || tour.stayDuration in Filter.selectedDurationToDouble
             }
 
@@ -55,7 +55,7 @@ class CatalogViewModel(@SuppressLint("StaticFieldLeak") private val context: Con
             val allTours = getCatalog.getCatalog(context)
 
             filteredTours = allTours.filter { tour ->
-                compilationFilter.selectedCountries.isEmpty() || tour.country.name in compilationFilter.selectedCountries
+                compilationFilter.selectedCountries.isEmpty() || tour.country?.name in compilationFilter.selectedCountries
                 compilationFilter.selectedDuration.isEmpty() || tour.stayDuration in compilationFilter.selectedDurationToDouble
             }
 

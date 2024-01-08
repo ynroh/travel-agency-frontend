@@ -44,7 +44,7 @@ import com.shadow_shift_studio.travelagency_frontend.view.cards.TourPointCard
 
 
 @Composable
-fun TourPage(navController: NavController){
+fun TourPage(navController: NavController, tour: TourPreview){
     val listState = rememberScrollState()
     var photo1 = Photo(0, "https://mykaleidoscope.ru/x/uploads/posts/2022-09/1663166898_7-mykaleidoscope-ru-p-amalfi-italiya-dostoprimechatelnosti-7.jpg")
     var photo2 = Photo(1, "https://mykaleidoscope.ru/x/uploads/posts/2022-09/1663166811_3-mykaleidoscope-ru-p-gunib-dagestan-dostoprimechatelnosti-krasi-4.jpg")
@@ -53,7 +53,13 @@ fun TourPage(navController: NavController){
 
     val navControllerTourPage = rememberNavController()
 
-    val photos = listOf(photo1, photo2, photo3, photo4)
+    var photos = mutableListOf<Photo>()
+    var index: Int = 0
+
+    for( item in tour.photosUrl!!){
+        photos.add(Photo(index, item))
+        index++
+    }
 
     var selectedPhoto by remember { mutableStateOf(photos.first()) }
     var isFullScreenGalleryVisible by remember { mutableStateOf(false) }
@@ -87,7 +93,7 @@ fun TourPage(navController: NavController){
                                     shape = RoundedCornerShape(15.dp)
                                 )
                         ) {
-                            GuideCard()
+                            GuideCard(tour)
                         }
                         Spacer(modifier = Modifier.height(15.dp))
                         Row(
@@ -112,7 +118,7 @@ fun TourPage(navController: NavController){
                                                 shape = RoundedCornerShape(15.dp)
                                             )
                                     ) {
-                                        TourPointCard()
+                                       TourPointCard(tour)
                                     }
                                 }
                             }

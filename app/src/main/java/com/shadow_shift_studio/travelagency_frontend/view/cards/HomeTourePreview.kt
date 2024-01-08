@@ -35,12 +35,12 @@ import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_sec
 
 @Composable
 fun HomeTourPreviewCard(navController: NavController, tour: TourPreview, onId: (id : Long) -> Unit){
-    val title: String = tour.title
-    val price: String = tour.cost.toString()
-    val countrie: String = tour.country.name
-    val duration: String = tour.stayDuration.toString()
+    val title: String? = tour.title
+    val price: String? = tour.cost.toString()
+    val countrie: String? = tour.country?.name
+    val duration: String? = tour.stayDuration.toString()
     val tourPrewievInfo = countrie + ", " + duration;
-    val photo = tour.photosUrl[0]
+    val photo = tour.photosUrl?.get(0)
     Card(
         modifier = Modifier
             .height(200.dp)
@@ -78,7 +78,7 @@ fun HomeTourPreviewCard(navController: NavController, tour: TourPreview, onId: (
                         .padding(top = 135.dp)
                 ) {
                     Text(
-                        text = title,
+                        text = title.toString(),
                         color = md_theme_light_secondary,
                         modifier = Modifier
                             .padding(start = 10.dp),
@@ -91,7 +91,7 @@ fun HomeTourPreviewCard(navController: NavController, tour: TourPreview, onId: (
                         .padding(top = 155.dp)
                 ) {
                     Text(
-                        text = price,
+                        text = price.toString(),
                         color = md_theme_light_primary,
                         modifier = Modifier
                             .padding(start = 10.dp),

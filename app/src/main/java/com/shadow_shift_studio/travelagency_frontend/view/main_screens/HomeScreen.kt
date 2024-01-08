@@ -112,7 +112,7 @@ fun HomeScreen(navController: NavController, catalogViewModel: CatalogViewModel)
                 }
             }
             composable("TourPageScreen") {
-                TourPage(navControllerHomeScreen)
+                //TourPage(navControllerHomeScreen)
             }
         }
     }
@@ -155,25 +155,6 @@ fun ToursCompilation(
                 fontSize = 30.sp,
                 fontFamily = FontFamily.Monospace
             )
-           /* ExtendedFloatingActionButton(
-                onClick = { *//*TODO*//*
-                },
-                shape = RoundedCornerShape(28.dp),
-                modifier = Modifier
-                    .width(60.dp)
-                    .height(40.dp)
-                    .padding(end = 11.dp),
-                containerColor = md_theme_light_primary,
-                contentColor = md_theme_light_surfaceVariant
-            ) {
-                Icon(
-                    Icons.Default.ArrowForwardIos,
-                    "more",
-                    modifier = Modifier
-                        .width(25.dp)
-                        .height(25.dp)
-                )
-            }*/
 
         }
         Row(modifier = Modifier.padding(top = 11.dp, start = 11.dp ,bottom = 11.dp, end = 11.dp)){
@@ -209,7 +190,6 @@ fun HorisontalTourCardList(navController: NavController, catalogViewModel: Catal
         }
 
         items(count = complationTours.size) { index ->
-            var a = ""
             HomeTourPreviewCard(navController, complationTours[index], onId)
         }
     }

@@ -30,17 +30,17 @@ import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_pri
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_secondary
 
 @Composable
-fun TourPreviewCard(navController: NavController, tour: TourPreview, onId: (id : Long) -> Unit){
-    val title: String = tour.title
-    val price: String = tour.cost.toString()
-    val countrie: String = tour.country.name
-    val duration: Double = tour.stayDuration
+fun TourPreviewCard(navController: NavController, tour: TourPreview, onId: (tour: TourPreview) -> Unit){
+    val title: String? = tour.title
+    val price: String? = tour.cost.toString()
+    val countrie: String? = tour.country?.name
+    val duration: Double? = tour.stayDuration
     val tourPrewievInfo = countrie + ", " + duration + " дн."
     Card(
         modifier = Modifier
             .height(320.dp)
             .clickable {
-                tour.id?.let { onId(it) }
+                tour?.let { onId(it) }
                 navController.navigate("TourPageScreen")}
             .padding(start = Padding.dp, bottom = Padding.dp, end = Padding.dp),
         colors = CardColors(
@@ -50,11 +50,11 @@ fun TourPreviewCard(navController: NavController, tour: TourPreview, onId: (id :
             md_theme_dark_inverseSurface
         )
     ){
-        Column(modifier = Modifier.fillMaxSize()) {7u
+        Column(modifier = Modifier.fillMaxSize()) {
             Box() {
                 Row() {
                     AsyncImage(
-                        model = tour.photosUrl[1],
+                        model = tour.photosUrl?.get(0),
                         contentDescription = "",
                         contentScale = ContentScale.FillWidth,
                         modifier = Modifier
@@ -75,7 +75,7 @@ fun TourPreviewCard(navController: NavController, tour: TourPreview, onId: (id :
                         .padding(top = 200.dp)
                 ) {
                     Text(
-                        text = title,
+                        text = title.toString(),
                         color = md_theme_light_onPrimaryContainer,
                         modifier = Modifier
                             .padding(start = 10.dp),
@@ -88,7 +88,7 @@ fun TourPreviewCard(navController: NavController, tour: TourPreview, onId: (id :
                     .padding(top = 230.dp)
                 ) {
                     Text(
-                        text = price,
+                        text = price.toString(),
                         color = md_theme_light_primary,
                         modifier = Modifier
                             .padding(start = 10.dp),

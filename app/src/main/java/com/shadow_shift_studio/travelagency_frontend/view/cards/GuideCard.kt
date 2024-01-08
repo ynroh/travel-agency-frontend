@@ -20,12 +20,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.shadow_shift_studio.travelagency_frontend.Padding
+import com.shadow_shift_studio.travelagency_frontend.model.entity.TourPreview
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_primary
 
 @Composable
-fun GuideCard(){
-    var name: String = "Марк Яснов"
-    var description: String = "В моем \"рюкзаке знаний\" собраны самые интересные факты, забавные истории и несколько секретных тропинок, чтобы каждая ваша поездка стала неповторимым приключением. С меня - веселые рассказы, смешные анекдоты и немного вдохновения для того, чтобы ваш отдых стал по-настоящему незабываемым."
+fun GuideCard(tour: TourPreview){
+    var name = tour.representative?.name + " " + tour.representative?.last_name
+    //var description: String = "В моем \"рюкзаке знаний\" собраны самые интересные факты, забавные истории и несколько секретных тропинок, чтобы каждая ваша поездка стала неповторимым приключением. С меня - веселые рассказы, смешные анекдоты и немного вдохновения для того, чтобы ваш отдых стал по-настоящему незабываемым."
+    var description = tour.representative?.description
     Column( modifier = Modifier.padding(Padding.dp).fillMaxSize()) {
         Row(
             modifier = Modifier.fillMaxSize(),
@@ -42,7 +44,7 @@ fun GuideCard(){
                         CircleShape
                     )
             )
-            Text(text = name,
+            Text(text = name.toString(),
                 color = md_theme_light_primary,
                 fontSize = 23.sp,
                 textAlign = TextAlign.Right,
@@ -50,6 +52,6 @@ fun GuideCard(){
                 )
         }
         Spacer(modifier = Modifier.height(Padding.dp))
-        Text(text = description,)
+        Text(text = description.toString(),)
     }
 }

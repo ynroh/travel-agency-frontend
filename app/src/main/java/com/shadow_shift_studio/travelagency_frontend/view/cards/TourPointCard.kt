@@ -35,26 +35,32 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.shadow_shift_studio.travelagency_frontend.Padding
-import com.shadow_shift_studio.travelagency_frontend.model.entity.Excursion
-import com.shadow_shift_studio.travelagency_frontend.model.entity.Hotel
+import com.shadow_shift_studio.travelagency_frontend.model.entity.TourPreview
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_primary
 import com.shadow_shift_studio.travelagency_frontend.ui.theme.md_theme_light_surfaceTint
 
 @Composable
-fun TourPointCard() {
-    val title: String = "Призрачный Гамсутль"
+fun TourPointCard(tour: TourPreview) {
+   /* val title: String = "Призрачный Гамсутль"
     val city: String = "Гамсутль"
     val stayDuration : Double = 2.5
     val excursion = Excursion("Тайны заброшенного города", "Эта экскурсия предлагает вам уникальную возможность исследовать древний заброшенный город в Дагестане, где каждое здание, каждая улица – свидетели ушедших эпох. На протяжении этой экскурсии вы окунетесь в атмосферу загадочности и увлекательных рассказов о прошлом города. Вы пройдете по забытым улочкам, освеживая свои воспоминания о временах, когда здесь звучали голоса жителей и раздавались гам и смех детей.")
-    val hotel = Hotel("Гостиница Эльбрус", 3)
-    val tourPrewievInfo = city + ", " + stayDuration + " дн.";
+    val hotel = Hotel("Гостиница Эльбрус", 3)*/
+
+    val title = tour.routePoints?.get(0)?.title
+    val city = tour.routePoints?.get(0)?.city
+    val stayDuration = tour.routePoints?.get(0)?.stayDuration
+    val excursion = tour.routePoints?.get(0)?.excursions
+    val hotel = tour.routePoints?.get(0)?.hotels
+    val tourPrewievInfo = city!!.name + ", " + stayDuration.toString() + " дн."
+
     Column(modifier = Modifier.padding(Padding.dp).width(260.dp) )
     {
         Text("Куда отправимся?",
             fontSize = 24.sp,
             color = md_theme_light_primary,)
         Spacer(modifier = Modifier.height(11.dp))
-        Text(text = title,
+        Text(text = title.toString(),
             fontSize = 20.sp)
         Spacer(modifier = Modifier.height(4.dp))
         Text(tourPrewievInfo,
@@ -66,19 +72,21 @@ fun TourPointCard() {
             fontSize = 24.sp,
             color = md_theme_light_primary,)
         Spacer(modifier = Modifier.height(11.dp))
-        Text(text = excursion.title,
-            fontSize = 20.sp)
+        if (excursion != null) {
+            Text(text = excursion.title.toString(),
+                fontSize = 20.sp)
+        }
         Spacer(modifier = Modifier.height(4.dp))
-        ExpandableText(text = excursion.description)
+        ExpandableText(text = excursion!!.description)
         Spacer(modifier = Modifier.height(11.dp))
 
         Text("Где будем жить?",
             fontSize = 24.sp,
             color = md_theme_light_primary,)
         Spacer(modifier = Modifier.height(11.dp))
-        Text(text = hotel.title,
+        Text(text = hotel!!.title,
             fontSize = 20.sp)
-        MultipleImagesRow(hotel.raiting)
+        MultipleImagesRow(hotel!!.raiting)
         Spacer(modifier = Modifier.height(11.dp))
     }
 }

@@ -1,7 +1,6 @@
 package com.shadow_shift_studio.travelagency_frontend.model.entity
 
-data class Excursion (
+data class City(
     var id: Int,
-    var title: String,
-    var description: String
+    var name: String
 )
