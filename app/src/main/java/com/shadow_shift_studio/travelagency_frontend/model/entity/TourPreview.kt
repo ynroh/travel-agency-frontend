@@ -7,6 +7,6 @@ data class TourPreview (
     var title: String,
     var stayDuration: Double,
     var cost: BigDecimal,
-    var photoUrl: List<String>,
+    var photosUrl: List<String>,
     var country: Country
 )

@@ -1,28 +1,21 @@
 package com.shadow_shift_studio.travelagency_frontend.view.cards
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,8 +36,6 @@ fun TourPreviewCard(navController: NavController, tour: TourPreview, onId: (id :
     val countrie: String = tour.country.name
     val duration: Double = tour.stayDuration
     val tourPrewievInfo = countrie + ", " + duration + " дн."
-    //val photo: String = tour.photoUrl[0]
-    val photo: String = "https://ic.pics.livejournal.com/mg5642/66429722/2348596/2348596_original.jpg"
     Card(
         modifier = Modifier
             .height(320.dp)
@@ -59,11 +50,11 @@ fun TourPreviewCard(navController: NavController, tour: TourPreview, onId: (id :
             md_theme_dark_inverseSurface
         )
     ){
-        Column(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier.fillMaxSize()) {7u
             Box() {
                 Row() {
                     AsyncImage(
-                        model = photo,
+                        model = tour.photosUrl[1],
                         contentDescription = "",
                         contentScale = ContentScale.FillWidth,
                         modifier = Modifier
